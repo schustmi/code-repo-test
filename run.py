@@ -33,7 +33,6 @@ docker_settings =  DockerSettings(
         },
     },
     requirements=["PyGithub"],
-    environment={"GIT_PYTHON_REFRESH": "quiet"},
 )
 
 
