@@ -32,7 +32,6 @@ docker_settings =  DockerSettings(
             "PYTHON_VERSION": f"{sys.version_info.major}.{sys.version_info.minor}"
         },
     },
-    requirements=["PyGithub"],
 )
 
 
