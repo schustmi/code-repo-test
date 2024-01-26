@@ -12,8 +12,7 @@
 #  or implied. See the License for the specific language governing
 #  permissions and limitations under the License.
 
-from zenml.pipelines import pipeline
-from zenml.steps import BaseParameters, Output, StepContext, step
+from zenml import step, pipeline
 import sys
 from pathlib import Path
 
@@ -35,40 +34,26 @@ docker_settings =  DockerSettings(
 )
 
 
-class FirstStepParams(BaseParameters):
-    key: str = "value"
-
-
 @step
-def first_step(params: FirstStepParams) -> Output(my_output=int):
+def step_1() -> int:
     """Docstring."""
     return 99
 
 
-
-class CustomInt(int):
-    pass
-
-
-@step(enable_cache=False)
-def second_step(number: int, context: StepContext) -> CustomInt:
-    return CustomInt(number * 2)
+@step(enable_cache=True)
+def step_2(number: int) -> int:
+    return number * 2
 
 
 @pipeline(
+    enable_cache=False,
     settings={
         "docker": docker_settings,
     },
 )
-def michael_test_pipeline(step_1, step_2):
+def code_repo_pipeline():
     step_2(step_1())
 
 
-pipeline_instance = michael_test_pipeline(
-    step_1=first_step(),
-    step_2=second_step(),
-)
-
-
 if __name__ == "__main__":
-    pipeline_instance.run()
+    code_repo_pipeline()
