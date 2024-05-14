@@ -22,12 +22,12 @@ def step_1() -> int:
     return 99
 
 
-@step(settings={"docker": DockerSettings(environment={"key": "value"})})
+@step #(settings={"docker": DockerSettings(environment={"key": "value"})})
 def step_2(number: int) -> int:
     return number * 2
 
 
-@step(step_operator="sagemaker")
+@step #(step_operator="sagemaker")
 def step_3() -> None:
   return
 
